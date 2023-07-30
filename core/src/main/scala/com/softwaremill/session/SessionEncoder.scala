@@ -13,7 +13,8 @@ object SessionEncoder {
     * Default low-priority implicit encoder. If you wish to use another one, provide an implicit encoder in a
     * higher-priority implicit scope, e.g. as an implicit value declared next to `SessionManager`.
     */
-  implicit def basic[T](implicit serializer: SessionSerializer[T, String]) = new BasicSessionEncoder[T]()
+  implicit def basic[T](implicit serializer: SessionSerializer[T, String]): BasicSessionEncoder[T] =
+    new BasicSessionEncoder[T]()
 }
 
 case class DecodeResult[T](t: T, expires: Option[Long], signatureMatches: Boolean, isLegacy: Boolean)

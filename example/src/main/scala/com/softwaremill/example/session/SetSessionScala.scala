@@ -14,15 +14,15 @@ import com.typesafe.scalalogging.StrictLogging
 import scala.io.StdIn
 
 object SetSessionScala extends App with StrictLogging {
-  implicit val system = ActorSystem("example")
-  implicit val materializer = ActorMaterializer()
+  implicit val system: ActorSystem = ActorSystem("example")
+  implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   import system.dispatcher
 
   val sessionConfig = SessionConfig.default(
     "c05ll3lesrinf39t7mc5h6un6r0c69lgfno69dsak3vabeqamouq4328cuaekros401ajdpkh60rrtpd8ro24rbuqmgtnd1ebag6ljnb65i8a55d482ok7o0nch0bfbe")
-  implicit val sessionManager = new SessionManager[MyScalaSession](sessionConfig)
-  implicit val refreshTokenStorage = new InMemoryRefreshTokenStorage[MyScalaSession] {
+  implicit val sessionManager: SessionManager[MyScalaSession] = new SessionManager[MyScalaSession](sessionConfig)
+  implicit val refreshTokenStorage: InMemoryRefreshTokenStorage[MyScalaSession] = new InMemoryRefreshTokenStorage[MyScalaSession] {
     def log(msg: String) = logger.info(msg)
   }
 

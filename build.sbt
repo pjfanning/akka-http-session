@@ -1,9 +1,10 @@
 import com.softwaremill.SbtSoftwareMillCommon.commonSmlBuildSettings
 import com.softwaremill.Publish.ossPublishSettings
 
-val scala2_12 = "2.12.17"
-val scala2_13 = "2.13.10"
-val scala2 = List(scala2_12, scala2_13)
+val scala2_12 = "2.12.18"
+val scala2_13 = "2.13.11"
+val scala3 = "3.3.0"
+val scalaVersions = List(scala2_12, scala2_13, scala3)
 
 lazy val commonSettings = commonSmlBuildSettings ++ ossPublishSettings ++ Seq(
   organization := "com.github.pjfanning",
@@ -39,7 +40,7 @@ lazy val core = (projectMatrix in file("core"))
       scalaTest
     )
   )
-  .jvmPlatform(scalaVersions = scala2)
+  .jvmPlatform(scalaVersions = scalaVersions)
 
 lazy val jwt = (projectMatrix in file("jwt"))
   .settings(commonSettings: _*)
@@ -55,7 +56,7 @@ lazy val jwt = (projectMatrix in file("jwt"))
     // generating docs for 2.13 causes an error: "not found: type DefaultFormats$"
     Compile / doc / sources := Seq.empty
   )
-  .jvmPlatform(scalaVersions = scala2)
+  .jvmPlatform(scalaVersions = scalaVersions)
   .dependsOn(core)
 
 lazy val example = (projectMatrix in file("example"))
@@ -69,7 +70,7 @@ lazy val example = (projectMatrix in file("example"))
       "org.json4s" %% "json4s-ext" % json4sVersion
     )
   )
-  .jvmPlatform(scalaVersions = scala2)
+  .jvmPlatform(scalaVersions = scalaVersions)
   .dependsOn(core, jwt)
 
 lazy val javaTests = (projectMatrix in file("javaTests"))
@@ -90,5 +91,5 @@ lazy val javaTests = (projectMatrix in file("javaTests"))
       scalaTest
     )
   )
-  .jvmPlatform(scalaVersions = scala2)
+  .jvmPlatform(scalaVersions = scalaVersions)
   .dependsOn(core, jwt)

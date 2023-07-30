@@ -15,7 +15,7 @@ class CsrfDirectivesTest extends AnyFlatSpec with ScalatestRouteTest with Matche
 
   import TestData._
   val cookieName = sessionConfig.csrfCookieConfig.name
-  implicit val csrfCheckMode = checkHeader
+  implicit val csrfCheckMode: CheckHeader[Map[String, String]] = checkHeader
 
   def routes[T](implicit manager: SessionManager[T], checkMode: CsrfCheckMode[T]) =
     hmacTokenCsrfProtection(checkMode) {
@@ -43,7 +43,7 @@ class CsrfDirectivesTest extends AnyFlatSpec with ScalatestRouteTest with Matche
       responseAs[String] should be("ok")
 
       val csrfCookieOption = header[`Set-Cookie`]
-      csrfCookieOption should be('defined)
+      csrfCookieOption shouldBe defined
       val Some(csrfCookie) = csrfCookieOption
 
       csrfCookie.cookie.name should be(cookieName)

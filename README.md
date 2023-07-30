@@ -3,12 +3,12 @@
 `pekko-http` is a great toolkit for building backends for single-page or mobile applications. In almost all apps there 
 is a need to maintain user sessions, make sure session data is secure and cannot be tampered with.
 
-`pekko-http-session` provides directives for client-side session management in web and mobile applications, using cookies
+`pekko-http-session` provides directives for client-side session management in web and mobile applications, usingValue cookies
 or custom headers + local storage, with optional [Json Web Tokens](http://jwt.io/) format support. 
 
 This is a fork of [akka-http-session](https://github.com/softwaremill/akka-http-session).
 The [akka-http-session FAQ](https://github.com/softwaremill/akka-http-session-faq) is useful resource.
-It includes code examples (in Java, but easy to translate to Scala) which answers many common questions on how sessions work, how to secure them and implement using akka-http.
+It includes code examples (in Java, but easy to translate to Scala) which answers many common questions on how sessions work, how to secure them and implement usingValue akka-http.
 These examples can be easily changed to work with pekko-http.
 
 ## What is a session?
@@ -18,11 +18,11 @@ session cannot be "stolen" or forged easily.
 
 Sessions can be stored on the server, either in-memory or in a database, with the session `id` sent to the client,
 or entirely on the client in a serialized format. The former approach requires sticky sessions or additional shared
-storage, while using the latter (which is supported by this library) sessions can be easily deserialized on any server.
+storage, while usingValue the latter (which is supported by this library) sessions can be easily deserialized on any server.
   
 A session is a string token which is sent to the client and should be sent back to the server on every request.
 
-To prevent forging, serialized session data is **signed** using a server secret. The signature is appended to the
+To prevent forging, serialized session data is **signed** usingValue a server secret. The signature is appended to the
 session data that is sent to the client, and verified when the session token is received back.
 
 ## `pekko-http-session` features
@@ -47,16 +47,16 @@ secret (via a `SessionConfig`). The secret should be a long, random string uniqu
 running in. You can generate one with `SessionUtil.randomServerSecret()`. Note that when you change the secret, 
 all sessions will become invalid.
 
-A `SessionConfig` instance can be created using [Typesafe config](https://github.com/typesafehub/config).
+A `SessionConfig` instance can be created usingValue [Typesafe config](https://github.com/typesafehub/config).
 The only value that you need to provide is `pekko.http.session.server-secret`,
-preferably via `application.conf` (then you can safely call `SessionConfig.fromConfig`) or by using 
+preferably via `application.conf` (then you can safely call `SessionConfig.fromConfig`) or by usingValue 
 `SessionConfig.default()`.
 
 You can customize any of the [default config options](https://github.com/pjfanning/pekko-http-session/blob/master/core/src/main/resources/reference.conf) 
 either by modifying them through `application.conf` or by modifying the `SessionConfig` case class. If a value has
-type `Option[]`, you can set it to `None` by using a `none` value in the config file (for both java and scala).
+type `Option[]`, you can set it to `None` by usingValue a `none` value in the config file (for both java and scala).
 
-When using cookies, by default the `secure` attribute of cookies is not set (for development), however it is 
+When usingValue cookies, by default the `secure` attribute of cookies is not set (for development), however it is 
 recommended that all sites use `https` and all cookies have this attribute set. 
 
 ## Client-side sessions
@@ -72,15 +72,15 @@ current request and logic specific to your application.
 
 ### Cookies vs header
 
-Session data can be sent to the client using cookies or custom headers. The first approach is the simplest to use,
+Session data can be sent to the client usingValue cookies or custom headers. The first approach is the simplest to use,
 as cookies are automatically sent to the server on each request. 
 
 However, cookies have some security vulnerabilities, and are typically not used in mobile applications. For these
-scenarios, session data can be transported using custom headers (the names of the headers are configurable in 
+scenarios, session data can be transported usingValue custom headers (the names of the headers are configurable in 
 the config).
 
-When using headers, you need to store the session (and, if used, refresh-) tokens yourself. These tokens can be 
-stored in-memory, or persistently e.g. using the browser's local storage.
+When usingValue headers, you need to store the session (and, if used, refresh-) tokens yourself. These tokens can be 
+stored in-memory, or persistently e.g. usingValue the browser's local storage.
 
 You can dynamically decide which transport to use, basing e.g. on the user-agent or other request properties.
 
@@ -98,7 +98,7 @@ Here are code samples in [scala](https://github.com/pjfanning/pekko-http-session
 The basic directives enable you to set, read and invalidate the session. To create a new client-side session (create
 and set a new session cookie), you need to use the `setSession` directive. See how it's done in [java](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/java/com/softwaremill/example/session/SetSessionJava.java) and [scala](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/scala/com/softwaremill/example/session/SetSessionScala.scala).
 
-Note that when using cookies, their size is limited to 4KB, so you shouldn't put too much data in there (the signature 
+Note that when usingValue cookies, their size is limited to 4KB, so you shouldn't put too much data in there (the signature 
 takes about 50 characters). 
 
 You can require a session to be present, optionally require a session or get a full description of possible session decode outcomes. 
@@ -118,24 +118,24 @@ The key used for encrypting will be calculated basing on the server secret.
 By default, sessions expire after a week. This can be disabled or changed with the `pekko.http.session.max-age` config
 option.
 
-Note that when using cookies, even though the cookie sent will be a session cookie, it is possible that the client 
+Note that when usingValue cookies, even though the cookie sent will be a session cookie, it is possible that the client 
 will have the browser open for a very long time, [uses Chrome or FF](http://stackoverflow.com/questions/10617954/chrome-doesnt-delete-session-cookies), 
 or if an attacker steals the cookie, it can be re-used. Hence having an expiry date for sessions is highly recommended.
 
 ## JWT: encoding sessions
 
-By default, sessions are encoded into a string using a custom format, where expiry/data/signature parts are separated using `-`, and data fields are separated using `=` and url-encoded.
+By default, sessions are encoded into a string usingValue a custom format, where expiry/data/signature parts are separated usingValue `-`, and data fields are separated usingValue `=` and url-encoded.
 
 You can also encode sessions in the [Json Web Tokens](http://jwt.io) format, by adding the additional `jwt` dependency, which makes use of [`json4s`](http://json4s.org).
 
-When using JWT, you need to provide a serializer which serializes session data to a `JValue` instead of a `String`. 
+When usingValue JWT, you need to provide a serializer which serializes session data to a `JValue` instead of a `String`. 
 A number of serializers for the basic types are present in `JValueSessionSerializer`, as well as a generic serializer for case classes (used above).
 
 You may also find it helpful to include the json4s-ext library which provides serializers for common Java types such as  `java.util.UUID`, `org.joda.time._` and Java enumerations.
 
 Grab some [java](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/java/com/softwaremill/example/jwt/JavaJwtExample.java) and [scala](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/scala/com/softwaremill/example/serializers/JWTSerializersScala.scala) examples.
 
-There are many tools available to read JWT session data using various platforms, e.g. 
+There are many tools available to read JWT session data usingValue various platforms, e.g. 
 [for Angular](https://github.com/auth0/angular-jwt).
 
 It is also possible to customize the session data content generated by overriding appropriate methods in 
@@ -157,7 +157,7 @@ If `exp-timeout` is not defined, value of `pekko.http.session.max-age` would be 
 
 `jti` (*JWT ID*) claim is a case-sensitive string containing a unique identifier for the JWT. It must be unique per token and collisions must be prevented even among values produced by different issuers.
 pekko-http-session will compute and include `jti` claim if `pekko.http.session.jwt.include-jti` is set to `true` (it's disabled by default).
-Token ids are generated using the below scheme:
+Token ids are generated usingValue the below scheme:
 
 `<iss claim value>-<random UUID>` or just `<random UUID>`, depending on the `iss` claim presence.
 
@@ -177,17 +177,17 @@ pekko.http.session {
 
 ````
 
-## Signing session using a configurable algorithm
+## Signing session usingValue a configurable algorithm
 
 In the case of JWT, it's possible to configure which JWS algorithm should be used. Currently, supported ones are:
-* `HS256` - HMAC using SHA-256 (used by default)
-* `RS256` - RSA (RSASSA-PKCS1-v1_5) using SHA-256
+* `HS256` - HMAC usingValue SHA-256 (used by default)
+* `RS256` - RSA (RSASSA-PKCS1-v1_5) usingValue SHA-256
 
 All non-JWT sessions use HMAC with SHA-256 and this cannot be configured.
 
 ### Configuring JWS (for JSON Web Tokens only)
 
-In order to start using RSA algorithm you have to configure `pekko.http.session.jws.alg` and `pekko.http.session.jws.rsa-private-key` properties:
+In order to start usingValue RSA algorithm you have to configure `pekko.http.session.jws.alg` and `pekko.http.session.jws.rsa-private-key` properties:
 ````hocon
 pekko.http.session {
   jws {
@@ -208,7 +208,7 @@ pekko.http.session {
 }
 ````
 
-You might notice that even if you want to sign your sessions using RSA key and encryption is disabled, you still have to define the server-secret property.
+You might notice that even if you want to sign your sessions usingValue RSA key and encryption is disabled, you still have to define the server-secret property.
 
 That's because all non-JWT sessions still depend on HMAC with SHA256 algorithm which requires the server secret and the library cannot determine which session encoder(s) will be used (it's specified in the client's code).
 
@@ -228,10 +228,10 @@ Web apps which use cookies for session management should be protected against CS
 Note that if the token is passed in a form field, the website isn't protected by HTTPS or you don't control all 
 subdomains, this scheme [can be broken](http://security.stackexchange.com/questions/59470/double-submit-cookies-vulnerabilities/61039#61039).
 Currently, setting a custom header seems to be a secure solution, and is what a number of projects do (that's why, when
-using custom headers to send session data, no additional protection is needed).
+usingValue custom headers to send session data, no additional protection is needed).
 
 It is recommended to generate a new CSRF token after logging in, see [this SO question](http://security.stackexchange.com/questions/22903/why-refresh-csrf-token-per-form-request).
-A new token can be generated using the `setNewCsrfToken` directive.
+A new token can be generated usingValue the `setNewCsrfToken` directive.
 
 By default the name of the CSRF cookie and the custom header matches what [AngularJS expects and sets](https://docs.angularjs.org/api/ng/service/$http).
 These can be customized in the config.
@@ -246,30 +246,30 @@ a long time. Make sure to adjust the `pekko.http.session.refresh-token.max-age` 
 You can dynamically decide, basing on the request properties (e.g. a query parameter), if a session should be
 refreshable or not. Just pass the right parameter to `setSession`.
 
-When using refreshable sessions, in addition to an (implicit) `SessionManager` instance, you need to provide an 
+When usingValue refreshable sessions, in addition to an (implicit) `SessionManager` instance, you need to provide an 
 implementation of the `RefreshTokenStorage` trait. This trait has methods to lookup, store and delete refresh tokens. 
 Typically it would use some persistent storage.
 
 The tokens are never stored directly, instead only token hashes are passed to the storage. That way even if the token
-database is leaked, it won't be possible to forge sessions using the hashes. Moreover, in addition to the token hash,
-a selector value is stored. That value is used to lookup stored hashes; tokens are compared using a special
+database is leaked, it won't be possible to forge sessions usingValue the hashes. Moreover, in addition to the token hash,
+a selector value is stored. That value is used to lookup stored hashes; tokens are compared usingValue a special
 constant-time comparison method, to prevent timing attacks.
 
-When a session expires or is not present, but the refresh token is (sent from the client using either a cookie,
-or a custom header), a new session will be created (using the `RefreshTokenLookupResult.createSession` function), 
+When a session expires or is not present, but the refresh token is (sent from the client usingValue either a cookie,
+or a custom header), a new session will be created (usingValue the `RefreshTokenLookupResult.createSession` function), 
 and a new refresh token will be created.
 
 Note that you can differentiate between sessions created from refresh tokens and from regular authentication
 by storing appropriate information in the session data. That way, you can force the user to re-authenticate 
 if the session was created by a refresh token before crucial operations.
 
-It is of course possible to read `oneOff`-session using `requiredSession(refreshable, ...)`. If a session was created
-as `oneOff`, using `refreshable` has no additional effect.
+It is of course possible to read `oneOff`-session usingValue `requiredSession(refreshable, ...)`. If a session was created
+as `oneOff`, usingValue `refreshable` has no additional effect.
 
 ### Touching sessions
 
 The semantics of `touch[Required|Optional]Session()` are a bit subtle. You can still use expiring client
-sessions when using refresh tokens. You will then have 2 stages of expiration: expiration of the client session
+sessions when usingValue refresh tokens. You will then have 2 stages of expiration: expiration of the client session
 (should be shorter), and expiry of the refresh token. That way you can have strongly-authenticated sessions
 which expire fast, and weaker-authenticated re-creatable sessions (as described in the paragraph above).
 

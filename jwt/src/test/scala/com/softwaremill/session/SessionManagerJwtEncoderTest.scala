@@ -66,16 +66,16 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   def runTest[T](td: TestData[T]): Unit = {
-    implicit val ss = td.sessionSerializer
-    implicit val encoder = new JwtSessionEncoder[T]
+    implicit val ss: SessionSerializer[T, JValue] = td.sessionSerializer
+    implicit val encoder: JwtSessionEncoder[T] = new JwtSessionEncoder[T]
     val manager = new SessionManager(td.config).clientSessionManager
 
     manager.decode(manager.encode(td.data)) should be(SessionResult.Decoded(td.data))
   }
 
   it should "encode correctly in the JWT format" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
 
     val encoded = encoder.encode(SessionData("john", 30), 1447416197071L, defaultConfig)
     println(s"Test on: http://jwt.io/#debugger:\n$encoded")
@@ -165,8 +165,8 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   it should "not decode an expired session" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
     val managerHour1 = new SessionManager(configMaxAge) {
       override def nowMillis = 1447416197071L
     }.clientSessionManager
@@ -178,8 +178,8 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   it should "not decode a token with a corrupted signature [HMAC SHA256]" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
 
     val managerHmac1 = new SessionManager(hmacSha256Config).clientSessionManager
     val managerHmac2 = new SessionManager(
@@ -190,8 +190,8 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   it should "not decode a token with a corrupted signature [RSA]" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
 
     val managerRsa1 = new SessionManager(rsaSigConfig()).clientSessionManager
     val managerRsa2 = new SessionManager(rsaSigConfig()).clientSessionManager
@@ -200,8 +200,8 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   it should "not decode a token with a non compatible signatures [RSA vs HMAC SHA256]" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
 
     val managerHmac = new SessionManager(hmacSha256Config).clientSessionManager
     val managerRsa = new SessionManager(rsaSigConfig()).clientSessionManager
@@ -211,8 +211,8 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   it should "decode a token with 'Bearer' prefix" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
     val manager = new SessionManager(defaultConfig).clientSessionManager
 
     val data = SessionData("john", 50)
@@ -221,8 +221,8 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   it should "not decode v0.5.2 tokens without config" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
     val manager = new SessionManager(defaultConfig).clientSessionManager
 
     val data = SessionData("john", 50)
@@ -232,8 +232,8 @@ class SessionManagerJwtEncoderTest extends AnyFlatSpec with Matchers {
   }
 
   it should "decode v0.5.2 tokens with config" in {
-    implicit val ss = JValueSessionSerializer.caseClass[SessionData]
-    implicit val encoder = new JwtSessionEncoder[SessionData]
+    implicit val ss: SessionSerializer[SessionData, JValue] = JValueSessionSerializer.caseClass[SessionData]
+    implicit val encoder: JwtSessionEncoder[SessionData] = new JwtSessionEncoder[SessionData]
     val manager = new SessionManager(defaultConfig.copy(tokenMigrationV0_5_3Enabled = true)).clientSessionManager
 
     val data = SessionData("john", 50)
