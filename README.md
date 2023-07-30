@@ -278,8 +278,6 @@ cookie.
 
 ## Using from SBT
 
-For `pekko-http` version `10+`:
-
 ````scala
 libraryDependencies += "com.github.pjfanning" %% "pekko-http-session-core" % "0.8.0"
 libraryDependencies += "com.github.pjfanning" %% "pekko-http-session-jwt"  % "0.8.0" // optional
