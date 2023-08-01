@@ -18,6 +18,7 @@ lazy val commonSettings = Seq(
       connection = "scm:git:git@github.com:pjfanning/pekko-http-session.git"
     )
   ),
+  dynverSonatypeSnapshots := true,
   publishTo := sonatypePublishToBundle.value
 )
 
