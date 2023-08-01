@@ -3,6 +3,8 @@ val scala2_13 = "2.13.11"
 val scala3 = "3.3.0"
 val scalaVersions = List(scala2_12, scala2_13, scala3)
 
+ThisBuild / dynverSonatypeSnapshots := true
+
 lazy val commonSettings = Seq(
   organization := "com.github.pjfanning",
   versionScheme := Some("early-semver"),
@@ -18,7 +20,6 @@ lazy val commonSettings = Seq(
       connection = "scm:git:git@github.com:pjfanning/pekko-http-session.git"
     )
   ),
-  dynverSonatypeSnapshots := true,
   publishTo := sonatypePublishToBundle.value
 )
 
