@@ -1,15 +1,23 @@
-import com.softwaremill.SbtSoftwareMillCommon.commonSmlBuildSettings
-import com.softwaremill.Publish.ossPublishSettings
-
 val scala2_12 = "2.12.18"
 val scala2_13 = "2.13.11"
 val scala3 = "3.3.0"
 val scalaVersions = List(scala2_12, scala2_13, scala3)
 
-lazy val commonSettings = commonSmlBuildSettings ++ ossPublishSettings ++ Seq(
+lazy val commonSettings = Seq(
   organization := "com.github.pjfanning",
   versionScheme := Some("early-semver"),
-  resolvers += "Apache Pekko Staging" at "https://repository.apache.org/content/groups/staging"
+  resolvers += "Apache Pekko Staging" at "https://repository.apache.org/content/groups/staging",
+  licenses += ("Apache-2.0", new URL("https://github.com/pjfanning/pekko-http-session/blob/main/LICENSE")),
+  startYear := Some(2023),
+  homepage := Some(url("https://github.com/pjfanning/pekko-http-session")),
+  developers := Developer("softwaremill", "SoftwareMill", "info@softwaremill.com", url("https://softwaremill.com")) ::
+    Developer("pjfanning", "PJ Fanning", "", url("https://github.com/pjfanning")) :: Nil,
+  scmInfo := Some(
+    ScmInfo(
+      browseUrl = url("https://github.com/pjfanning/pekko-http-session.git"),
+      connection = "scm:git:git@github.com:pjfanning/pekko-http-session.git"
+    )
+  )
 )
 
 val pekkoHttpVersion = "1.0.0-RC2"

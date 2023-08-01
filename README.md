@@ -7,7 +7,7 @@ is a need to maintain user sessions, make sure session data is secure and cannot
 or custom headers + local storage, with optional [Json Web Tokens](http://jwt.io/) format support. 
 
 This is a fork of [akka-http-session](https://github.com/softwaremill/akka-http-session).
-The [akka-http-session FAQ](https://github.com/softwaremill/akka-http-session-faq) is useful resource.
+The [akka-http-session FAQ](https://github.com/softwaremill/akka-http-session-faq) is a useful resource.
 It includes code examples (in Java, but easy to translate to Scala) which answers many common questions on how sessions work, how to secure them and implement usingValue akka-http.
 These examples can be easily changed to work with pekko-http.
 
