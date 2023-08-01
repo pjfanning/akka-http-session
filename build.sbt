@@ -17,7 +17,8 @@ lazy val commonSettings = Seq(
       browseUrl = url("https://github.com/pjfanning/pekko-http-session.git"),
       connection = "scm:git:git@github.com:pjfanning/pekko-http-session.git"
     )
-  )
+  ),
+  publishTo := sonatypePublishToBundle.value
 )
 
 val pekkoHttpVersion = "1.0.0-RC2"
