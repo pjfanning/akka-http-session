@@ -1,7 +1,6 @@
 package com.github.pjfanning.session.javadsl
 
 import com.github.pjfanning.session
-import com.github.pjfanning.session.InMemoryRefreshTokenStorage
 
 /**
  * Can't use the trait com.softwaremill.session.InMemoryRefreshTokenStorage in Java code, hence this wrapper
