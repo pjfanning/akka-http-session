@@ -23,7 +23,8 @@ lazy val commonSettings = Seq(
 val pekkoHttpVersion = "1.0.0-RC2"
 val pekkoStreamsVersion = "1.0.1"
 val scalaJava8CompatVersion = "1.0.2"
-val json4sVersion = "4.0.4"
+val json4sVersion = "4.0.6"
+val jacksonVersion = "2.14.3"
 val pekkoStreamsProvided = "org.apache.pekko" %% "pekko-stream" % pekkoStreamsVersion % "provided"
 val pekkoStreamsTestkit = "org.apache.pekko" %% "pekko-stream-testkit" % pekkoStreamsVersion % "test"
 
@@ -58,6 +59,7 @@ lazy val jwt = (projectMatrix in file("jwt"))
       "org.json4s" %% "json4s-jackson" % json4sVersion,
       "org.json4s" %% "json4s-ast" % json4sVersion,
       "org.json4s" %% "json4s-core" % json4sVersion,
+      "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
       pekkoStreamsProvided,
       scalaTest
     ),
