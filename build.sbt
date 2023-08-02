@@ -8,7 +8,6 @@ ThisBuild / dynverSonatypeSnapshots := true
 lazy val commonSettings = Seq(
   organization := "com.github.pjfanning",
   versionScheme := Some("early-semver"),
-  resolvers += "Apache Pekko Staging" at "https://repository.apache.org/content/groups/staging",
   licenses += ("Apache-2.0", new URL("https://github.com/pjfanning/pekko-http-session/blob/main/LICENSE")),
   startYear := Some(2023),
   homepage := Some(url("https://github.com/pjfanning/pekko-http-session")),
@@ -23,7 +22,7 @@ lazy val commonSettings = Seq(
   publishTo := sonatypePublishToBundle.value
 )
 
-val pekkoHttpVersion = "1.0.0-RC2"
+val pekkoHttpVersion = "1.0.0"
 val pekkoStreamsVersion = "1.0.1"
 val scalaJava8CompatVersion = "1.0.2"
 val json4sVersion = "4.0.6"
