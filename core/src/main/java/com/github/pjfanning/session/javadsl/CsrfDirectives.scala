@@ -8,7 +8,7 @@ import org.apache.pekko.http.javadsl.server.Route
 import org.apache.pekko.http.javadsl.server.directives.RouteAdapter
 
 /**
- * Java alternative for com.softwaremill.session.CsrfDirectives
+ * Java alternative for com.github.pjfanning.session.CsrfDirectives
  */
 trait CsrfDirectives {
 

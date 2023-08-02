@@ -11,7 +11,7 @@ import org.apache.pekko.http.javadsl.server.directives.RouteAdapter
 import scala.compat.java8.OptionConverters._
 
 /**
- * Java alternative for com.softwaremill.session.SessionDirectives
+ * Java alternative for com.github.pjfanning.session.SessionDirectives
  */
 trait SessionDirectives extends OneOffSessionDirectives with RefreshableSessionDirectives {
 

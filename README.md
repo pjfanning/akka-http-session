@@ -38,7 +38,7 @@ session data that is sent to the client, and verified when the session token is 
 
 ## Example
 
-You can try out a simple example by running [`com.softwaremill.example.ScalaExample`](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/scala/com/softwaremill/example/ScalaExample.scala) or [`com.softwaremill.example.JavaExample`](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/java/com/softwaremill/example/JavaExample.java) and opening [http://localhost:8080](http://localhost:8080).
+You can try out a simple example by running [`com.github.pjfanning.session.example.ScalaExample`](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/scala/com/softwaremill/example/ScalaExample.scala) or [`com.github.pjfanning.session.example.JavaExample`](https://github.com/pjfanning/pekko-http-session/blob/master/example/src/main/java/com/softwaremill/example/JavaExample.java) and opening [http://localhost:8080](http://localhost:8080).
 
 ## `SessionManager` & configuration
 

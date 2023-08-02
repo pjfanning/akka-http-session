@@ -6,7 +6,7 @@ import org.json4s.DefaultFormats$;
 import org.json4s.JValue;
 
 /**
- * Wrapper for session transports in com.softwaremill.session.JValueSessionSerializer
+ * Wrapper for session transports in com.github.pjfanning.session.JValueSessionSerializer
  */
 public final class JwtSessionSerializers {
 

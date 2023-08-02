@@ -5,7 +5,7 @@ import com.github.pjfanning.session.HeaderST$;
 import com.github.pjfanning.session.SetSessionTransport;
 
 /**
- * Wrapper for session transports in com.softwaremill.session.SetSessionTransport
+ * Wrapper for session transports in com.github.pjfanning.session.SetSessionTransport
  */
 public final class SessionTransports {
 

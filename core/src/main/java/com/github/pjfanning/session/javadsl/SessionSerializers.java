@@ -12,7 +12,7 @@ import scala.util.Try;
 import java.util.Map;
 
 /**
- * Wrapper for session serializers in com.softwaremill.session.SessionSerializer
+ * Wrapper for session serializers in com.github.pjfanning.session.SessionSerializer
  */
 public final class SessionSerializers {
 
