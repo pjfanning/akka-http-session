@@ -75,7 +75,7 @@ public class JavaExample extends HttpSessionAwareDirectives<MyJavaSession> {
         final Http http = Http.get(system);
 
         // ** pekko-http-session setup **
-        MessageDispatcher dispatcher = system.dispatchers().lookup("akka.actor.default-dispatcher");
+        MessageDispatcher dispatcher = system.dispatchers().lookup("pekko.actor.default-dispatcher");
         final JavaExample app = new JavaExample(dispatcher);
 
         // ** pekko-http boiler plate continued **

@@ -61,7 +61,7 @@ public class VariousSessionsJava extends HttpSessionAwareDirectives<MyJavaSessio
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         final Http http = Http.get(system);
 
-        final MessageDispatcher dispatcher = system.dispatchers().lookup("akka.actor.default-dispatcher");
+        final MessageDispatcher dispatcher = system.dispatchers().lookup("pekko.actor.default-dispatcher");
         final VariousSessionsJava app = new VariousSessionsJava(dispatcher);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routes = app.createRoutes().flow(system, materializer);

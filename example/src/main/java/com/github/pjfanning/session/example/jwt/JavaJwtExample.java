@@ -74,7 +74,7 @@ public class JavaJwtExample extends HttpSessionAwareDirectives<String> {
         final Http http = Http.get(system);
 
         // ** pekko-http-session setup **
-        MessageDispatcher dispatcher = system.dispatchers().lookup("akka.actor.default-dispatcher");
+        MessageDispatcher dispatcher = system.dispatchers().lookup("pekko.actor.default-dispatcher");
         final JavaJwtExample app = new JavaJwtExample(dispatcher);
 
         // ** pekko-http boiler plate continued **

@@ -66,7 +66,7 @@ public class SetSessionJava extends HttpSessionAwareDirectives<MyJavaSession> {
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         final Http http = Http.get(system);
 
-        final MessageDispatcher dispatcher = system.dispatchers().lookup("akka.actor.default-dispatcher");
+        final MessageDispatcher dispatcher = system.dispatchers().lookup("pekko.actor.default-dispatcher");
         final SetSessionJava app = new SetSessionJava(dispatcher);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routes = app.createRoutes().flow(system, materializer);
