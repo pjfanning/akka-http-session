@@ -1,3 +1,11 @@
+# Pekko HTTP Session
+
+*Retired because [akka-http-session](https://github.com/softwaremill/akka-http-session) now publishes pekko-http-session jars.*
+
+https://mvnrepository.com/artifact/com.softwaremill.pekko-http-session
+
+## Old Documentation
+
 [`pekko-http`](https://pekko.apache.org/docs/pekko-http/current/index.html) is an Apache Pekko module for building *reactive* REST services with an elegant DSL.
 
 `pekko-http` is a great toolkit for building backends for single-page or mobile applications. In almost all apps there 
